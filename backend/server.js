@@ -16,8 +16,13 @@ connectCloudinary()
 const _dirname = path.resolve();
 // middlewares
 app.use(express.json())
-app.use(cors({ origin: '*' }))
-
+// app.use(cors({ origin: '*' }))
+app.use(cors({
+  origin: "http://localhost:5173", // Replace with your frontend's origin
+  methods: ["GET", "POST", "PATCH", "PUT", "DELETE"], // Include PATCH
+  credentials: true, // Allow cookies to be sent
+}));
+app.options('*', cors());
 // api endpoints
 app.use("/api/user", userRouter)
 app.use("/api/admin", adminRouter)
